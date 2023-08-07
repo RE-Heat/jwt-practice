@@ -1,6 +1,7 @@
 package jwtpractice.jwtpractice.controller;
 
 import jwtpractice.jwtpractice.domain.UserJoinRequest;
+import jwtpractice.jwtpractice.domain.UserLoginRequest;
 import jwtpractice.jwtpractice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,5 +22,11 @@ public class UserController {
         userService.join(dto.getUserName(), dto.getPassword());
 
         return ResponseEntity.ok().body("회원가입이 성공했습니다");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UserLoginRequest dto){
+        String token = userService.login(dto.getUserName(), dto.getPassword());
+        return ResponseEntity.ok().body(token);
     }
 }
